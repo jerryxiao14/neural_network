@@ -1,21 +1,29 @@
 import math
+import random
 
-
-def dot(x,y):
+def dot(x, y):
+    if isinstance(x[0],(int,float)):
+        if not isinstance(y[0],(int,float)) or len(x)!=len(y):
+            raise ValueError("dimensions don't match")
+        ans = 0
+        for i in range(len(x)):
+            ans+=x[i]*y[i]
+        return ans
+    if isinstance(y[0],(int,float)):
+        if not isinstance(x[0],(int,float)) or len(x)!=len(y):
+            raise ValueError("dimensions don't match")
     if len(x[0]) != len(y):
-        raise ValueError("Number of columns in matrix a must equal matrix b")
+        raise ValueError("Number of columns in matrix x must equal number of rows in matrix y.")
     
     rows_x, cols_x = len(x), len(x[0])
     rows_y, cols_y = len(y), len(y[0])
-
 
     result = [[0 for _ in range(cols_y)] for _ in range(rows_x)]
     for i in range(rows_x):
         for j in range(cols_y):
             for k in range(cols_x):
                 result[i][j] += x[i][k] * y[k][j]
-    return result 
-
+    return result
 
 def sigmoid(x):
     # Activation function for sigmoid is f(x) = 1/(1+e^(-x))
@@ -163,3 +171,14 @@ def hard_swish(x):
     
     if isinstance(x, list) and isinstance(x[0], list):
         return [hard_swish(row) for row in x]
+
+def sigmoid_derivative(x):
+    if isinstance(x,(int,float)):
+        s = sigmoid(x)
+        return s * (1-s)
+    if isinstance(x,list):
+        return [sigmoid_derivative(elem) for elem in x]
+
+    raise ValueError("Unsupported type for sigmoid_derivative")
+
+

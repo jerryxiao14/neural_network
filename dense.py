@@ -23,3 +23,14 @@ class Dense:
         output = [neuron.feed_forward(inputs) for neuron in self.neurons]
         return output 
     
+    def backward(self, grads):
+        grad_inputs = [0 for _ in range(self.input_size)]
+        for i, neuron in enumerate(self.neurons):
+            grad_input = neuron.backward(grads[i])
+            grad_inputs = [grad_inputs[j] + grad_input[j] for j in range(self.input_size)]
+        return grad_inputs
+
+    def update_params(self, learning_rate = 0.01):
+        for neuron in self.neurons:
+            neuron.update_params(learning_rate)
+    
