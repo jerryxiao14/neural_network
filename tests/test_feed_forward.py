@@ -10,6 +10,7 @@ def sigmoid(x):
     if isinstance(x,list):
         return [sigmoid(elem) for elem in x]
 
+    raise ValueError("instance is not list or number???")
 
 # Assuming util.dot function is defined
 def dot(x,y):
@@ -60,7 +61,7 @@ def run_comparison_test():
     weights = [[0.1, 0.2, 0.3], [0.4, 0.5, 0.6]]
     bias = [0.5, 0.7]  # Can be scalar or matching the size of weights
 
-    inputs = [[1, 2,3],[4,5, 6]]
+    inputs = [[1,2],[3,4],[5, 6]]
 
     # Instantiate the custom Neuron object
     custom_neuron = Neuron(weights, bias)
@@ -74,15 +75,17 @@ def run_comparison_test():
     np_bias = np.array(bias)
 
     # Compute output in NumPy
-    np_total = np.dot(np_weights, np_inputs.T)  # Matrix multiplication (dot product)
-    np_result = sigmoid(np_total + np_bias[:, np.newaxis])  # Apply bias
+    np_total = np.dot(np_weights, np_inputs)  # Matrix multiplication (dot product)
+    print(f'np_total is {np_total}')
+    #np_total = (list)(np_total)
+    np_result = sigmoid((np_total + np_bias).tolist())  # Apply bias
 
     # Run the test
     print("Custom Neuron output: \n", custom_output)
     print("NumPy output: \n", np_result)
 
     # Comparing results (tolerances for potential floating point differences)
-    np.testing.assert_allclose(custom_output, np_result.tolist(), atol=1e-6)
+    np.testing.assert_allclose(custom_output, np_result, atol=1e-6)
     print("Test passed, results are close to the expected outputs from NumPy.")
 
 # Call to run the comparison test

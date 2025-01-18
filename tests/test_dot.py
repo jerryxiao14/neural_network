@@ -9,8 +9,20 @@ sys.path.insert(0, parent_dir)
 import util
 import numpy as np
 import random
+from util import dot
 # Define your custom dot function
 def dot(x, y):
+    
+    if isinstance(x[0],(int,float)):
+        if not isinstance(y[0],(int,float)) or len(x)!=len(y):
+            raise ValueError("dimensions don't match")
+        ans = 0
+        for i in range(len(x)):
+            ans+=x[i]*y[i]
+        return ans
+    if isinstance(y[0],(int,float)):
+        if not isinstance(x[0],(int,float)) or len(x)!=len(y):
+            raise ValueError("dimensions don't match")
     if len(x[0]) != len(y):
         raise ValueError("Number of columns in matrix x must equal number of rows in matrix y.")
     
@@ -32,7 +44,7 @@ def test_dot_function():
         x_1d = [random.randint(1, 10) for _ in range(size_1d)]
         y_1d = [random.randint(1, 10) for _ in range(size_1d)]
         
-        custom_result_1d = np.dot(x_1d, y_1d)
+        custom_result_1d = dot(x_1d, y_1d)
         numpy_result_1d = np.dot(x_1d, y_1d)
         
         # Compare for 1D vectors (inner product)
