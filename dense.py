@@ -5,10 +5,11 @@ from neuron import Neuron
 import random 
 
 class Dense:
-    def __init__(self, num_neurons, input_size, activation = util.sigmoid):
+    def __init__(self, num_neurons, input_size, activation = util.sigmoid, activation_grad = util.sigmoid_derivative):
         self.num_neurons = num_neurons
         self.input_size = input_size 
         self.activation = activation
+        self.activation_grad = activation_grad
         self.initialize_neurons()
     
     def initialize_neurons(self):
@@ -17,7 +18,8 @@ class Dense:
         for _ in range(self.num_neurons):
             weights = [random.uniform(-scale,scale) for _ in range(self.input_size)]
             bias = random.uniform(-scale,scale)
-            self.neurons.append(Neuron,(weights,bias, self.activation))
+            neuron = Neuron(weights, bias, self.activation, self.activation_grad)
+            self.neurons.append(neuron)
 
     def forward(self, inputs):
         output = [neuron.feed_forward(inputs) for neuron in self.neurons]

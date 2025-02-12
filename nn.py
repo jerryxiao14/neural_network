@@ -26,6 +26,7 @@ class NeuralNetwork:
 
     def train(self, inputs, targets, loss_function, loss_grad_function, epochs, learning_rate = 0.01,):
         for epoch in range(epochs):
+            print(f'epoch {epoch+1}/{epochs}')
             loss = 0
             for i, input in enumerate(inputs):
                 target = targets[i]
@@ -33,3 +34,4 @@ class NeuralNetwork:
                 loss += loss_function(target, prediction)
                 loss_grad = loss_grad_function(target, prediction)
                 self.backward(loss_grad)
+            print(f'epoch {epoch+1}/{epochs}, loss: {loss/len(inputs)}')

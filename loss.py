@@ -12,9 +12,12 @@ def cross_entropy_loss(y_true, y_pred):
 y_true = [1, 0, 1, 1]
 y_pred = [0.9, 0.1, 0.8, 0.7]
 
-print("MSE:", mean_squared_error(y_true, y_pred))
-print("Cross-Entropy Loss:", cross_entropy_loss(y_true, y_pred))
+#print("MSE:", mean_squared_error(y_true, y_pred))
+#print("Cross-Entropy Loss:", cross_entropy_loss(y_true, y_pred))
 
+
+def mean_squared_error_derivative(y_true, y_pred):
+    return [(2 / len(y_true)) * (yp - yt) for yt, yp in zip(y_true, y_pred)]
 
 def cross_entropy_loss(y_true, y_pred):
     epsilon = 1e-15  # to avoid log(0)
