@@ -38,7 +38,7 @@ nn.train(X_train, y_train, epochs=1000, learning_rate=0.01)
 predictions = nn.predict(X_test)
 
 
-#To-Do
+# To-Do
 Figure out why it is training and un-training somehow
 Implement batch normalization
 Improve optimization algorithms
