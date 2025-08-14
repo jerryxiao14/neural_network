@@ -39,6 +39,8 @@ nn.add_layer(layer_three)    # Output layer with softmax
 
 # Lets add a line of comment here 
 
+
+
 nn.train(
     inputs = X_train, 
     targets = y_train_encoded, 
